@@ -1,12 +1,8 @@
 ﻿namespace GildedRose.Items;
 
-public class Sulfuras : Item
+public class Sulfuras(string name, int sellIn, int quality, double price, bool conjured)
+    : Item(name, sellIn, quality, price, conjured)
 {
-    public Sulfuras(string name, int sellIn, int quality, double price)
-        : base(name, sellIn, quality, price)
-    {
-    }
-
     public override void UpdateItem()
     {
         //do nothing

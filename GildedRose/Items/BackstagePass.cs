@@ -1,13 +1,8 @@
 ﻿namespace GildedRose.Items;
 
-public class BackstagePass : Item
+public class BackstagePass(string name, int sellIn, int quality, double price, bool conjured)
+    : Item(name, sellIn, quality, price, conjured)
 {
-    public BackstagePass(string name, int sellIn, int quality, double price)
-        : base(name, sellIn, quality, price)
-    {
-    }
-
-    
     private protected override void UpdateQuality()
     {
         switch (SellIn)
@@ -26,5 +21,4 @@ public class BackstagePass : Item
                 break;
         }
     }
-    
 }
