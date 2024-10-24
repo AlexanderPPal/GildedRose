@@ -6,4 +6,5 @@ public interface IItem
     int SellIn { get; }
     int Quality { get; }
     double Price { get; }
+    bool Conjured { get; }
 }

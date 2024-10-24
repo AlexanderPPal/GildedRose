@@ -1,10 +1,23 @@
-﻿namespace GildedRose.Items;
+﻿using GildedRose.Interfaces;
 
-public class Item : GildedRose.Interfaces.IItem
+namespace GildedRose.Items;
+
+public class Item : IItem
 {
+    private int _quality;
+
+    protected Item(string name, int sellIn, int quality, double price, bool conjured)
+    {
+        Name = name;
+        SellIn = sellIn;
+        Quality = quality;
+        Price = price;
+        Conjured = conjured;
+    }
+
     public string Name { get; }
     public int SellIn { get; set; }
-    private int _quality;
+
     public int Quality
     {
         get => _quality;
@@ -18,38 +31,26 @@ public class Item : GildedRose.Interfaces.IItem
             };
         }
     }
-    public double Price { get; set; }
 
-    public Item(string name, int sellIn, int quality, double price)
-    {
-        Name = name;
-        SellIn = sellIn;
-        Quality = quality;
-        Price = price;
-    }
+    public double Price { get; set; }
+    public bool Conjured { get; }
 
     private protected virtual void UpdateQuality()
     {
-        if(SellIn < 0)
-        {
-            Quality -= 2;
-        }
-        else
-        {
-            Quality -= 1;
-        }
+        var valueToSubtract = SellIn < 0 ? 2 : 1;
+        Quality -= Conjured ? valueToSubtract * 2 : valueToSubtract;
     }
 
     private void UpdateSellIn()
     {
         SellIn -= 1;
     }
-    
+
     public void UpdatePrice(double newPrice)
     {
         Price = newPrice;
     }
-    
+
     public virtual void UpdateItem()
     {
         UpdateQuality();
