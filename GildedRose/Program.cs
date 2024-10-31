@@ -6,10 +6,10 @@ public abstract class Program
 {
     public static void Main()
     {
-        Console.WriteLine("Welcome to the Gilded Rose!");
+        Console.WriteLine(Text.Messages.Welcome);
         while (Ui.UserInput != "exit")
         {
-            Ui.PrintInstructions();
+            Console.WriteLine(Text.Instructions.MainMenu);
             Ui.HandleUserInput();
         }
     }

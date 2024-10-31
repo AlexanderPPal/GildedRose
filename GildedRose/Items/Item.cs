@@ -47,12 +47,12 @@ public class Item : IItem
         SellIn -= 1;
     }
     
-    public void SetPrice(double price, string currency)
+    public void SetPrice(double price, Currency currency)
     {
         Price = CurrencyConverter.Convert(price, fromCurrency: currency);
     }
     
-    public double GetPrice(string currency)
+    public double GetPrice(Currency currency)
     {
         return CurrencyConverter.Convert(Price, toCurrency: currency);
     }

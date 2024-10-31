@@ -1,4 +1,6 @@
-﻿namespace GildedRose.Interfaces;
+﻿using GildedRose.Price;
+
+namespace GildedRose.Interfaces;
 
 public interface IItem
 {
@@ -6,8 +8,7 @@ public interface IItem
     int SellIn { get; set; }
     int Quality { get; }
     bool Conjured { get; }
-
     void UpdateItem();
-    void SetPrice(double price, string currency);
-    double GetPrice(string currency);
+    void SetPrice(double price, Currency currency);
+    double GetPrice(Currency currency);
 }
