@@ -1,25 +1,28 @@
 ﻿namespace GildedRose.Price;
-
 public static class CurrencyConverter
 {
-    private static Dictionary<string, double> _exchangeRates = new Dictionary<string, double>
+    private const string DefaultCurrency = "EUR";
+    private static readonly Dictionary<string, double> ExchangeRates = new Dictionary<string, double>
     {
-        { "USD", 1.10 }, 
+        { "USD", 1.10 },
         { "GBP", 0.85 },
-        { "JPY", 130.00 }
+        { "JPY", 130.00 },
+        { "EUR", 1.00 },
     };
 
-    public static double Convert(double amount, string targetCurrency)
+    public static double Convert(double amount, string fromCurrency = DefaultCurrency, string toCurrency = DefaultCurrency)
     {
-        if (_exchangeRates.ContainsKey(targetCurrency))
+        if (!ExchangeRates.TryGetValue(fromCurrency, out var fromRate) || !ExchangeRates.TryGetValue(toCurrency, out var toRate))
         {
-            return amount * _exchangeRates[targetCurrency];
+            throw new ArgumentException("Currency not supported.");
         }
-        throw new ArgumentException("Currency not supported.");
+
+        var amountInEur = amount / fromRate;
+        return amountInEur * toRate;
     }
-    
-    public static IReadOnlyCollection<string> GetCurrencies()
+
+    public static IEnumerable<string> GetCurrencies()
     {
-        return _exchangeRates.Keys;
+        return ExchangeRates.Keys;
     }
 }
