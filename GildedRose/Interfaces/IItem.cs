@@ -3,8 +3,11 @@
 public interface IItem
 {
     string Name { get; }
-    int SellIn { get; }
+    int SellIn { get; set; }
     int Quality { get; }
-    double Price { get; }
     bool Conjured { get; }
+
+    void UpdateItem();
+    void SetPrice(double price, string currency);
+    double GetPrice(string currency);
 }

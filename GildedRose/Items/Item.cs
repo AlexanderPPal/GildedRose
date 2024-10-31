@@ -1,4 +1,5 @@
 ﻿using GildedRose.Interfaces;
+using GildedRose.Price;
 
 namespace GildedRose.Items;
 
@@ -6,7 +7,7 @@ public class Item : IItem
 {
     private int _quality;
 
-    protected Item(string name, int sellIn, int quality, double price, bool conjured)
+    public Item(string name, int sellIn, int quality, double price, bool conjured)
     {
         Name = name;
         SellIn = sellIn;
@@ -32,7 +33,7 @@ public class Item : IItem
         }
     }
 
-    public double Price { get; set; }
+    private double Price;
     public bool Conjured { get; }
 
     private protected virtual void UpdateQuality()
@@ -45,10 +46,15 @@ public class Item : IItem
     {
         SellIn -= 1;
     }
-
-    public void UpdatePrice(double newPrice)
+    
+    public void SetPrice(double price, string currency)
     {
-        Price = newPrice;
+        Price = CurrencyConverter.Convert(price, fromCurrency: currency);
+    }
+    
+    public double GetPrice(string currency)
+    {
+        return CurrencyConverter.Convert(Price, toCurrency: currency);
     }
 
     public virtual void UpdateItem()
