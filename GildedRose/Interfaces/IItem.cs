@@ -8,7 +8,7 @@ public interface IItem
     int SellIn { get; set; }
     int Quality { get; }
     bool Conjured { get; }
+    double Price { get; }
     void UpdateItem();
-    void SetPrice(double price, Currency currency);
     double GetPrice(Currency currency);
 }

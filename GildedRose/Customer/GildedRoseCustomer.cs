@@ -19,7 +19,7 @@ public static class GildedRoseCustomer
     {
         foreach (var item in CartItems)
         {
-            Console.WriteLine($"Name: {item.Name}, SellIn: {item.SellIn}, Quality: {item.Quality}, Price: {item.GetPrice(PreferredCurrency)}");
+            Console.WriteLine($"{nameof(item.Name)}: {item.Name}, {nameof(item.SellIn)}: {item.SellIn}, {nameof(item.Quality)}: {item.Quality}, {nameof(item.Price)}: {item.GetPrice(PreferredCurrency)}, {nameof(item.Conjured)}: {item.Conjured}");
         }
         var totalPrice = CartItems.Sum(i => i.GetPrice(PreferredCurrency));
         totalPrice= Discount.GetDiscountedPrice(totalPrice,CartItems);
@@ -28,7 +28,7 @@ public static class GildedRoseCustomer
     
     public static void AddItemToCart(string userInput)
     {
-        var item = GildedRoseStore.GetStoreItems().Find(i => i.Name.ToLower().Equals(userInput.ToLower()));
+        var item = GildedRoseStore.GetStoreItems().Find(i => i.Name.ToLower().Equals(userInput));
         if (item != null)
         {
             CartItems.Add(item);
@@ -63,6 +63,6 @@ public static class GildedRoseCustomer
             GildedRoseStore.GetStoreItems().Add(item);
         }
         CartItems.Clear();
-        Console.WriteLine("All items removed from cart.");
+        Console.WriteLine(Text.Messages.AllItemsRemoved);
     }
 }

@@ -1,5 +1,4 @@
-﻿using GildedRose.Customer;
-using GildedRose.Interfaces;
+﻿using GildedRose.Interfaces;
 using GildedRose.Store;
 using GildedRose.UserInterface;
 
