@@ -10,7 +10,7 @@ public abstract class Program
         while (Ui.UserInput != "exit")
         {
             Console.WriteLine(Text.Instructions.MainMenu);
-            Ui.HandleUserInput();
+            Ui.RunMainMenu();
         }
     }
 }

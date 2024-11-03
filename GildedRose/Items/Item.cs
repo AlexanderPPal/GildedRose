@@ -27,13 +27,13 @@ public class Item : IItem
             _quality = value switch
             {
                 < 0 => 0,
-                > 50 => 50,
+                > 50 when GetType().Name != nameof(LegendaryItem) => 50,
                 _ => value
             };
         }
     }
 
-    private double Price;
+    public double Price { get; private set; }
     public bool Conjured { get; }
 
     private protected virtual void UpdateQuality()
@@ -57,8 +57,9 @@ public class Item : IItem
         return CurrencyConverter.Convert(Price, toCurrency: currency);
     }
 
-    public virtual void UpdateItem()
+    public void UpdateItem()
     {
+        if (GetType().Name == nameof(LegendaryItem)) return;
         UpdateQuality();
         UpdateSellIn();
     }
