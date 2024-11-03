@@ -88,7 +88,7 @@ public static class Ui
             {
                 case false when Enum.TryParse(UserInput?.ToUpper(), out Currency currency):
                     GildedRoseCustomer.PreferredCurrency = currency;
-                    Console.WriteLine($"{Text.Messages.CurrencyChanged}{currency}");day
+                    Console.WriteLine($"{Text.Messages.CurrencyChanged}{currency}");
                     break;
                 case false:
                     Console.WriteLine(Text.Errors.InvalidInput);
