@@ -28,7 +28,7 @@ public static class GildedRoseCustomer
     
     public static void AddItemToCart(string userInput)
     {
-        var item = GildedRoseStore.GetStoreItems().Find(i => i.Name.ToLower().Equals(userInput));
+        var item = GildedRoseStore.GetStoreItems().Find(i => i.Name.ToLower().Equals(userInput.ToLower()));
         if (item != null)
         {
             CartItems.Add(item);
