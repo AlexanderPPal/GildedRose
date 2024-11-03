@@ -1,6 +1,7 @@
 ﻿using GildedRose.Interfaces;
 using GildedRose.Price;
 using GildedRose.Store;
+using GildedRose.UserInterface;
 
 namespace GildedRose.Customer;
 
@@ -9,17 +10,25 @@ public static class GildedRoseCustomer
     public static Currency PreferredCurrency { get; set; } = Currency.EUR;
     private static readonly List<IItem> CartItems = [];
     
+    public static List<IItem> GetCartItems()
+    {
+        return CartItems;
+    }
+    
     public static void PrintCartItems()
     {
         foreach (var item in CartItems)
         {
             Console.WriteLine($"Name: {item.Name}, SellIn: {item.SellIn}, Quality: {item.Quality}, Price: {item.GetPrice(PreferredCurrency)}");
         }
+        var totalPrice = CartItems.Sum(i => i.GetPrice(PreferredCurrency));
+        totalPrice= Discount.GetDiscountedPrice(totalPrice,CartItems);
+        Console.WriteLine($"Total price: {totalPrice} {PreferredCurrency}");
     }
     
     public static void AddItemToCart(string userInput)
     {
-        var item = GildedRoseStore.GetStoreItems().FirstOrDefault(i => i.Name == userInput);
+        var item = GildedRoseStore.GetStoreItems().Find(i => i.Name.ToLower().Equals(userInput.ToLower()));
         if (item != null)
         {
             CartItems.Add(item);
@@ -28,7 +37,7 @@ public static class GildedRoseCustomer
         }
         else
         {
-            Console.WriteLine("Item not found.");
+            Console.WriteLine(Text.Errors.ItemNotFound);
         }
     }
     
@@ -43,7 +52,17 @@ public static class GildedRoseCustomer
         }
         else
         {
-            Console.WriteLine("Item not found.");
+            Console.WriteLine(Text.Errors.ItemNotFound);
         }
+    }
+    
+    public static void RemoveAllItemsFromCart()
+    {
+        foreach (var item in CartItems)
+        {
+            GildedRoseStore.GetStoreItems().Add(item);
+        }
+        CartItems.Clear();
+        Console.WriteLine("All items removed from cart.");
     }
 }

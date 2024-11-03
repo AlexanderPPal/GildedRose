@@ -1,14 +1,23 @@
-﻿
+﻿using GildedRose.Customer;
+using GildedRose.Interfaces;
+using GildedRose.Store;
+using GildedRose.UserInterface;
+
 namespace GildedRose.Price;
 
 public static class Discount
 {
-    // public static double ApplyDiscount(Item item, double discount)
-    // {
-    //     if(discount is < 0 or > 1)
-    //     {
-    //         throw new ArgumentException("Discount must be between 0 and 1.");
-    //     }
-    //     return item.Price * (1 - discount);
-    // }
+    public static double GetDiscountedPrice(double totalPrice, IReadOnlyCollection<IItem> cartItems)
+    {
+        if(GildedRoseStore.Day %5 == 0)
+        {
+            totalPrice *= 0.8;
+            Console.WriteLine($"20{Text.Messages.DiscountApplied}");
+        } else if (cartItems.Count >= 3)
+        {
+            totalPrice *= 0.9;
+            Console.WriteLine($"10{Text.Messages.DiscountApplied}");
+        }
+        return totalPrice;
+    }
 }

@@ -20,9 +20,5 @@ public static class CurrencyConverter
         var amountInEur = amount / fromRate;
         return amountInEur * toRate;
     }
-
-    public static IEnumerable<Currency> GetCurrencies()
-    {
-        return ExchangeRates.Keys;
-    }
+    
 }

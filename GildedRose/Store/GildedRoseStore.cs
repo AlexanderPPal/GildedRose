@@ -10,9 +10,11 @@ public static class GildedRoseStore
     [
         new Sulfuras("Sulfuras", 10, 80, 1110, false),
         new AgedBrie("Aged Brie", 2, 0, 10, false),
-        new BackstagePass("Backstagepass ", 15, 20, 30, false),
+        new BackstagePass("Backstagepass", 15, 20, 30, false),
         new Item("Normal Item", 5, 10, 20, false)
     ];
+    
+    public static int Day {get; set;}
     
     public static void PrintStoreItems()
     {
